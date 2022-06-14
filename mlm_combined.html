@@ -1,34 +1,31 @@
----
-title: "<span style = 'font-size: 85%; color: white'>Introduction to Multilevel Modelling</span>"
-subtitle: "<span style = 'font-size: 80%;'>SGSSS Summer School 2022</span>"
-author: "Patricio Troncoso & Ana Morales-Gómez<br><span style = 'font-size: 60%;'>Heriot-Watt University<br>University of Edinburgh<br>Scottish Centre for Administrative Data Research (SCADR)</span>" 
-output:
-  xaringan::moon_reader:
-    css: xaringan-themer.css
-    nature:
-      countIncrementalSlides: false
-      highlightStyle: github
-      highlightLines: true
-      #titleSlideClass: ["left", "middle", "inverse"]
----
-```{r xaringan-themer, include=FALSE, warning=FALSE}
-library(xaringanthemer)
-style_mono_light(
-  base_color = "#3f5264", 
-  code_highlight_color = "#c0e8f5",
-  link_color = "#197b9e",
-  header_font_google = google_font("Josefin Sans"),
-  text_font_google   = google_font("Montserrat", "300", "300i"),
-  code_font_google   = google_font("Droid Mono")
-)
-```
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to Multilevel Modelling</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Patricio Troncoso &amp; Ana Morales-Gómez Heriot-Watt University University of Edinburgh Scottish Centre for Administrative Data Research (SCADR)" />
+    <script src="mlm_combined_files/header-attrs-2.14/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(ggplot2)
-library(R2MLwiN)
-library(lme4)
-```
+.title[
+# <span style="font-size: 85%; color: white">Introduction to Multilevel Modelling</span>
+]
+.subtitle[
+## <span style="font-size: 80%;">SGSSS Summer School 2022</span>
+]
+.author[
+### Patricio Troncoso &amp; Ana Morales-Gómez<br><span style="font-size: 60%;">Heriot-Watt University<br>University of Edinburgh<br>Scottish Centre for Administrative Data Research (SCADR)</span>
+]
+
+---
+
+
+
+
 
 class: left, middle, inverse
 
@@ -41,10 +38,7 @@ class: left, middle, inverse
 
 .center[**Patricio Troncoso**
 ]
-```{r, out.width = '25%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://i-sphere.site.hw.ac.uk/wp-content/uploads/sites/15/2021/01/PATRICIO-e1611159639790-225x300.jpg")
-
-```
+&lt;img src="https://i-sphere.site.hw.ac.uk/wp-content/uploads/sites/15/2021/01/PATRICIO-e1611159639790-225x300.jpg" width="25%" style="display: block; margin: auto;" /&gt;
 
 - Research Fellow, I-SPHERE, Heriot-Watt University
 
@@ -60,10 +54,7 @@ knitr::include_graphics("https://i-sphere.site.hw.ac.uk/wp-content/uploads/sites
 
 .center[**Ana Morales-Gómez**]
 
-```{r, out.width = '30%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://pbs.twimg.com/profile_images/1326811878752997376/7dvI51qy_400x400.jpg")
-
-```
+&lt;img src="https://pbs.twimg.com/profile_images/1326811878752997376/7dvI51qy_400x400.jpg" width="30%" style="display: block; margin: auto;" /&gt;
 
 
 - Research Fellow, School of Law, The University of Edinburgh 
@@ -75,7 +66,7 @@ knitr::include_graphics("https://pbs.twimg.com/profile_images/132681187875299737
 - Email: [Ana.Morales@ed.ac.uk](mailto:Ana.Morales@ed.ac.uk)
 ]
 
-<br>
+&lt;br&gt;
 We both work in the Scottish Centre for Administrative Data Research (SCADR). Find out more [here](https://www.scadr.ac.uk/)
 ---
 
@@ -124,7 +115,7 @@ class: middle
 
 class: left, middle, inverse
 
-### <font color="white">Part One: </font>
+### &lt;font color="white"&gt;Part One: &lt;/font&gt;
 
 # In the beginning, there was... linear regression
   
@@ -133,21 +124,7 @@ class: left, middle, inverse
 
 The easiest way to see the relationship between two continuous variables is to plot the values of one of them against the other.
 
-```{r, out.width = '40%', echo = FALSE, fig.align="center"}
-set.seed(12)
-
-n <- 100
-x <- runif(n, -2, 2)
-eps <- rnorm(n, 0, 1)
-
-y <- 2 + 3 * x + eps
-
-data <- data.frame(cbind(x,y))
-
-(p1 <- ggplot(data, aes(x=x, y=y)) + geom_point(colour="black", size=3) +
-  theme_classic() + labs(x="Independent variable", y="Dependent variable"))
-
-```
+&lt;img src="mlm_combined_files/figure-html/unnamed-chunk-3-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -180,10 +157,7 @@ This is presupposing that you have a **theoretical reason** to think they are in
 
 ### A correlation can occur purely by chance!
 
-```{r, out.width = '65%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://media3.giphy.com/media/37QUVxlBIduYqVVAjV/giphy.gif?cid=ecf05e47c1qerhqs6rgcvc7bl45kmwz3veb4ob4wqdmr4niv&rid=giphy.gif&ct=g")
-
-```
+&lt;img src="https://media3.giphy.com/media/37QUVxlBIduYqVVAjV/giphy.gif?cid=ecf05e47c1qerhqs6rgcvc7bl45kmwz3veb4ob4wqdmr4niv&amp;rid=giphy.gif&amp;ct=g" width="65%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Correlation doesn’t mean…
@@ -220,10 +194,7 @@ We look for the “best fit” to the data we have.
 
 We obtain an equation that describes how much our dependent variable (**y**) changes as our independent variable (**x**) changes.
 
-```{r, out.width = '65%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/exreg1.png")
-
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/exreg1.png" width="65%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -235,11 +206,7 @@ In the presence of an association between two variables, we can fit a straight l
 
 --
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '45%', echo = FALSE, fig.align="center"}
-
-(p2 <- p1 + geom_smooth(se=F, colour="red", method="lm"))
-
-```
+&lt;img src="mlm_combined_files/figure-html/unnamed-chunk-6-1.png" width="45%" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -253,33 +220,7 @@ This is what we typically call "the line of best fit", because it reduces the er
 
 In the presence of an association between two variables, we can fit a straight line to define the relationship
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '45%', echo = FALSE, fig.align="center"}
-
-(p3 <- ggplot(data, aes(x=x, y=y)) + geom_smooth(se=F, colour="red", method="lm") + 
-   geom_point(colour="grey", size=2) +
-  theme_classic() + labs(x="Independent variable", y="Dependent variable") +
-   scale_y_continuous(breaks = -5:10) +
-  geom_vline(xintercept = 0) +
-  geom_hline(yintercept = 0) +
-    geom_hline(yintercept = 2.07, linetype="dashed") +
-    geom_hline(yintercept = 5.2, linetype = "dashed") +
-    annotate("text", x = -1, y = 3.4, label = "Intercept = 2.07") +
-    annotate("text", x = 1.5, y = 3.4, label = "Slope = 3.14") +
-    geom_segment(aes(x = -1, y = 3, xend = 0, yend = 2.07),
-                 size = 1,
-                 arrow = arrow(length = unit(0.2, "cm")),
-                 colour = "blue") +
-    geom_segment(aes(x = 1, y = 2.07, xend = 1, yend = 5.2),
-                 size = 1,
-                 linetype = "dashed",
-                 colour = "blue") +
-    geom_segment(aes(x = 0, y = 2.07, xend = 1, yend = 2.07),
-                 size = 1,
-                 linetype = "dashed",
-                 colour = "blue")
-  )
-
-```
+&lt;img src="mlm_combined_files/figure-html/unnamed-chunk-7-1.png" width="45%" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -300,15 +241,15 @@ $$
 
 Where:
 
-$y$ is the value of the dependent variable
+`\(y\)` is the value of the dependent variable
 
-$\beta_0$ is the intercept (point at which the line crosses the y axis)
+`\(\beta_0\)` is the intercept (point at which the line crosses the y axis)
 
-$\beta_1$ is the slope (expected increase in $y$ given a one unit increase in $x$)
+`\(\beta_1\)` is the slope (expected increase in `\(y\)` given a one unit increase in `\(x\)`)
 
-$x$ is the value of the independent variable 
+`\(x\)` is the value of the independent variable 
 
-$e$ is the error term
+`\(e\)` is the error term
 
 
 ---
@@ -316,19 +257,36 @@ $e$ is the error term
 
 Assuming we have a dataset called "data", containing variables "y" and "x":
 
-```{r, highlight=T, eval=F}
+
+```r
 summary(lm(y ~ x, data = data))
 ```
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '45%', echo = FALSE, fig.align="center"}
-summary(lm(y ~ x, data = data))
+
+```
+## 
+## Call:
+## lm(formula = y ~ x, data = data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.24324 -0.55252  0.01285  0.65260  2.07716 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2.07135    0.09477   21.86   &lt;2e-16 ***
+## x            3.13895    0.08588   36.55   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9451 on 98 degrees of freedom
+## Multiple R-squared:  0.9317,	Adjusted R-squared:  0.931 
+## F-statistic:  1336 on 1 and 98 DF,  p-value: &lt; 2.2e-16
 ```
 ---
 ## How do you interpret R output?
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/reg1.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/reg1.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 --
 
 - The overall mean or intercept is *2.07*
@@ -339,7 +297,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 
 --
 
-- Both coefficients are statistically significant (*p<0.05*)
+- Both coefficients are statistically significant (*p&lt;0.05*)
 
 --
 
@@ -381,11 +339,12 @@ This is a subset of a large dataset of examination results in London schools
 lm(normexam ~ standlrt + factor(sex), data= tutorial)
 ```
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-library(R2MLwiN)
-data("tutorial")
-summary(lm(normexam ~ standlrt + factor(sex), data= tutorial))$coefficients
 
+```
+##                   Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept)     -0.1031842 0.01990450 -5.183966 2.277999e-07
+## standlrt         0.5905958 0.01268159 46.571132 0.000000e+00
+## factor(sex)girl  0.1699601 0.02570919  6.610869 4.317291e-11
 ```
 
 #### Question time!
@@ -437,10 +396,7 @@ This roughly means that whatever is left unexplained by our model can be thought
 
 --
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '75%', out.hight = '80%', echo = FALSE, fig.align="center"}
-
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/norm1.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/norm1.PNG" width="75%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## MLR Assumptions (2)
@@ -457,10 +413,10 @@ The variation of the residuals should remain constant across the predicted value
 
 --
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '75%', out.hight = '80%', echo = FALSE, fig.align="center", fig.cap="Source: Laerd Statistics"}
-
-knitr::include_graphics("https://statistics.laerd.com/spss-tutorials/img/lr/heteroscedastic-relationships.png")
-```
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://statistics.laerd.com/spss-tutorials/img/lr/heteroscedastic-relationships.png" alt="Source: Laerd Statistics" width="75%" /&gt;
+&lt;p class="caption"&gt;Source: Laerd Statistics&lt;/p&gt;
+&lt;/div&gt;
 ---
 ## MLR Assumptions (3)
 
@@ -489,7 +445,7 @@ This is a difficult assumption to meet. Some examples:
 ---
 class: left, middle, inverse
 
-### <font color="white">Part Two: </font>
+### &lt;font color="white"&gt;Part Two: &lt;/font&gt;
 
 # Multilevel data structures
 
@@ -516,9 +472,7 @@ Often, in reality, data is **hierarchically structured**
 
 Individuals usually belong to groups:
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '30%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/A-mora/SOCHICRIM/main/figures/cluster_prison.png")
-```
+&lt;img src="https://raw.githubusercontent.com/A-mora/SOCHICRIM/main/figures/cluster_prison.png" width="30%" style="display: block; margin: auto;" /&gt;
 --
 
 - Schools 
@@ -540,9 +494,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/A-mora/SOCHICRIM/main
 
 The "classic" pupils in schools structure:
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure1.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure1.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 
 - This is what we call a "2-level model"
 
@@ -555,9 +507,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 But the structure doesn't need to be composed of individuals in groups:
 
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure2.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure2.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 
 It can also be repeated measures nested within individuals
 
@@ -572,9 +522,7 @@ It can also be repeated measures nested within individuals
 But we are not limited to 2 levels only:
 
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure3.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure3.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 - This is a 3-level structure of pupils nested within classrooms, nested within schools.
 
 ]
@@ -585,9 +533,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 
 We can go even further, as it was done here:
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure4.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure4.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 
 - In this 4-level structure, schools are nested within a higher level of local authorities.
 
@@ -600,9 +546,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 - We are not limited to one outcome either
 
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '80%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://ars.els-cdn.com/content/image/1-s2.0-S0022440521000546-gr2.jpg")
-```
+&lt;img src="https://ars.els-cdn.com/content/image/1-s2.0-S0022440521000546-gr2.jpg" width="80%" style="display: block; margin: auto;" /&gt;
 
 - The structure here is longitudinal and multivariate: measures of children's mental health over time
 
@@ -616,9 +560,7 @@ Image Source: [Troncoso and Humphrey, 2021](https://doi.org/10.1016/j.jsp.2021.0
 - We are not limited to level-1 units (individuals) belonging to one level-2 unit (groups) only:
 
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '40%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure6.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure6.PNG" width="40%" style="display: block; margin: auto;" /&gt;
 
 - The structure here is people nested in multiple "cliques": Multiple Membership and Multiple Classification (MMMC) Models and Multilevel Social Networks
 
@@ -672,9 +614,7 @@ But independence assumption is unrealistic; for example:
 
 --
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '40%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure5.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure5.PNG" width="40%" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -687,9 +627,10 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 
 A study samples 100 areas from the UK. Within each area a  sample of citizens is selected and asked questions. Below are  shown the first six rows of the resulting dataset.
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '40%', echo = FALSE, fig.align="center", fig.cap="Source: LEMMA course Bristol University"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/whatislevel.PNG")
-```
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/whatislevel.PNG" alt="Source: LEMMA course Bristol University" width="40%" /&gt;
+&lt;p class="caption"&gt;Source: LEMMA course Bristol University&lt;/p&gt;
+&lt;/div&gt;
 --
 
 Question time:
@@ -845,35 +786,35 @@ class: middle
 
 --
 
-- Level one/microlevel unit: $i$ (e.g., individual)
+- Level one/microlevel unit: `\(i\)` (e.g., individual)
 
 --
 
-- Level two/macrolevel unit: $j$ (e.g., area, school)
+- Level two/macrolevel unit: `\(j\)` (e.g., area, school)
 
 --
 
-- There are $i=1,2, ... n_j$ level one units within level-2 units 
+- There are `\(i=1,2, ... n_j\)` level one units within level-2 units 
 
 --
 
-- and $j=1,2, ... J$ level-2 units.
+- and `\(j=1,2, ... J\)` level-2 units.
 
 --
 
-- Response variable $y_{ij}$ (continuous) is a function of:
+- Response variable `\(y_{ij}\)` (continuous) is a function of:
 
-  - individual variables: $x_{0ij}, x_{1ij}, ... x_{pij}$
+  - individual variables: `\(x_{0ij}, x_{1ij}, ... x_{pij}\)`
   
-  - and contextual variables: $z_{1j},z_{2j},…z_{Qj}$
+  - and contextual variables: `\(z_{1j},z_{2j},…z_{Qj}\)`
   
 --
 
 - Error terms: 
 
-    - $e_{ij}$ at the individual level
+    - `\(e_{ij}\)` at the individual level
     
-    - $u_{0j}$ at level-2
+    - `\(u_{0j}\)` at level-2
 
 ---
 class: middle
@@ -908,7 +849,7 @@ class: middle
 
 class: left, middle, inverse
 
-### <font color="white">Part Three: </font>
+### &lt;font color="white"&gt;Part Three: &lt;/font&gt;
 
 # Variance components and group-specific estimates
 
@@ -921,20 +862,20 @@ Consider the simplest possible statistical model:
 
 --
 
-$$\LARGE y_i = \beta_0 + e_i$$
-where $\beta_0$ is the mean of $y$ in the population, and $e_i$ is the residual for the i-th individual $(i = 1, 2,...n)$
+`$$\LARGE y_i = \beta_0 + e_i$$`
+where `\(\beta_0\)` is the mean of `\(y\)` in the population, and `\(e_i\)` is the residual for the i-th individual `\((i = 1, 2,...n)\)`
 
 --
 
-- Usually assume $e_i$ **~** $N(0,\sigma^2)$.
+- Usually assume `\(e_i\)` **~** `\(N(0,\sigma^2)\)`.
 
     - Normal distribution
     
 --
 
-- The variance $\sigma^2$ summarizes the variability around the mean;
+- The variance `\(\sigma^2\)` summarizes the variability around the mean;
 
-    - if this is zero all the points would lie on the $y=\beta_0$ line
+    - if this is zero all the points would lie on the `\(y=\beta_0\)` line
 
 ---
 ### Single level regression for the mean (2)
@@ -943,36 +884,34 @@ where $\beta_0$ is the mean of $y$ in the population, and $e_i$ is the residual 
 
 These are the residuals for four data points in single model for the mean:
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '60%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid1.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid1.PNG" width="60%" style="display: block; margin: auto;" /&gt;
 ---
 ## Multilevel model for group means (1)
 
 --
 
-$y_{ij}$ is the value of $y$ for the i-th individual in the j-th group. A model that allows for (random) group effects is:
+`\(y_{ij}\)` is the value of `\(y\)` for the i-th individual in the j-th group. A model that allows for (random) group effects is:
 
 --
 
-$$\LARGE y_{ij} = \beta_0 + u_{0j} + e_{ij}$$
+`$$\LARGE y_{ij} = \beta_0 + u_{0j} + e_{ij}$$`
 --
 
-- $\beta_0$ is the overall mean of $y$ (across all groups).
-
---
-
-- $\beta_0 + u_j$ is the mean of $y$ for group j.
+- `\(\beta_0\)` is the overall mean of `\(y\)` (across all groups).
 
 --
 
-- $u_j$ is the difference between group j’s mean and the overall mean.
+- `\(\beta_0 + u_j\)` is the mean of `\(y\)` for group j.
 
 --
 
-- $e_{ij}$ is the difference between the y-value for the i-th individual and that individual’s group mean:
+- `\(u_j\)` is the difference between group j’s mean and the overall mean.
 
-    - $e_{ij} = y_{ij} - (\beta_0 + u_j)$
+--
+
+- `\(e_{ij}\)` is the difference between the y-value for the i-th individual and that individual’s group mean:
+
+    - `\(e_{ij} = y_{ij} - (\beta_0 + u_j)\)`
 
 ---
 ## Multilevel model for group means (2)
@@ -981,9 +920,7 @@ Individual and group residuals in a two level model for the mean:
 
 --
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '60%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid2.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid2.PNG" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Multilevel model for group means (3)
@@ -992,9 +929,7 @@ Example: Weight in small areas in London:
 
 --
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid3.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid3.PNG" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Multilevel model for group means (4)
@@ -1003,9 +938,7 @@ Example: Weight in small areas in London:
 
 --
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid4.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid4.PNG" width="70%" style="display: block; margin: auto;" /&gt;
 
 What's changed from the previous example?
 
@@ -1014,11 +947,11 @@ What's changed from the previous example?
 
 --
 
-Assume $u_j$ **~** $N(0,\sigma_u^2)$ and $e_{ij}$ **~** $N(0,\sigma_e^2)$
+Assume `\(u_j\)` **~** `\(N(0,\sigma_u^2)\)` and `\(e_{ij}\)` **~** `\(N(0,\sigma_e^2)\)`
 
 --
 
-$\sigma_u^2$ is the between group variance and $\sigma_e^2$ is the within group variance.
+`\(\sigma_u^2\)` is the between group variance and `\(\sigma_e^2\)` is the within group variance.
 
 --
 
@@ -1026,10 +959,10 @@ The variance partition coefficient is the proportion of total variance due to di
 
 --
 
-$$VPC = \frac{\sigma_u^2}{\sigma_u^2 + \sigma_e^2}$$
+`$$VPC = \frac{\sigma_u^2}{\sigma_u^2 + \sigma_e^2}$$`
 --
 
-- VPC is also denoted as $\rho$ (rho)
+- VPC is also denoted as `\(\rho\)` (rho)
 
 --
 
@@ -1037,9 +970,9 @@ $$VPC = \frac{\sigma_u^2}{\sigma_u^2 + \sigma_e^2}$$
 
 --
 
-- $VPC = 0$ if no group effects 
+- `\(VPC = 0\)` if no group effects 
 
-- $VPC = 1$ if no within-group differences
+- `\(VPC = 1\)` if no within-group differences
 
 ---
 ## Variance Partitioning (2)
@@ -1053,9 +986,7 @@ Example "tutorial" data: subset of a large dataset of examination results in Lon
 
 - Empty MLM results:
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/vpc2.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/vpc2.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -1065,9 +996,9 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 
 VPC:
 
-$$\rho = \frac{\sigma_u^2}{\sigma_u^2 + \sigma_e^2}$$
-$$\rho = \frac{0.169}{0.169 + 0.848}$$
-$$\rho = 0.166$$
+`$$\rho = \frac{\sigma_u^2}{\sigma_u^2 + \sigma_e^2}$$`
+`$$\rho = \frac{0.169}{0.169 + 0.848}$$`
+`$$\rho = 0.166$$`
 **16.6%** of the total variation in exam scores is due to differences between schools.
 ]
 
@@ -1077,7 +1008,7 @@ Assuming `R2MLwiN` and `lme4` are installed and loaded, this is to replicate the
 
 ```{}
 data(tutorial)
-summary(mlm1 <- lmer(normexam ~ 1 + (1|school), data=tutorial, REML=F))
+summary(mlm1 &lt;- lmer(normexam ~ 1 + (1|school), data=tutorial, REML=F))
 ```
 ---
 ## Variance Partitioning (3)
@@ -1087,9 +1018,7 @@ summary(mlm1 <- lmer(normexam ~ 1 + (1|school), data=tutorial, REML=F))
 - Which model has the highest VPC?
 
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/vpc1.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/vpc1.PNG" width="70%" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -1100,23 +1029,23 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 
 --
 
-- Test $H_0: \sigma_u^2 = 0$ by comparing single level and multilevel model in a likelihood ratio test.
+- Test `\(H_0: \sigma_u^2 = 0\)` by comparing single level and multilevel model in a likelihood ratio test.
 
 --
 
 - Use the deviance statistic:
 
-$$D = 2(logL_1 - logL_2)$$
+`$$D = 2(logL_1 - logL_2)$$`
 --
 
 - Where:
 
-    - $L_1$ is the likelihood of the single level model
-    - $L_2$ is the likelihood of the multilevel model
+    - `\(L_1\)` is the likelihood of the single level model
+    - `\(L_2\)` is the likelihood of the multilevel model
 
 --
 
-- The test statistic $D$ is compared with a $\chi^2$ distribution with $df$ = number of extra parameters in the more complex model
+- The test statistic `\(D\)` is compared with a `\(\chi^2\)` distribution with `\(df\)` = number of extra parameters in the more complex model
 
 --
 
@@ -1128,31 +1057,41 @@ $$D = 2(logL_1 - logL_2)$$
 Example "tutorial" data
 
 - First we run a single-level model and extract the loglikelihood:
-```{r, warnings= F, message = F}
-single <- lm(normexam ~ 1, data=tutorial)
-(L1 <- logLik(single))
+
+```r
+single &lt;- lm(normexam ~ 1, data=tutorial)
+(L1 &lt;- logLik(single))
+```
+
+```
+## 'log Lik.' -5754.682 (df=2)
 ```
 
 - Then we run the multilevel model and extract the loglikelihood:
-```{r, warnings= F, message = F}
-mlm1 <- lmer(normexam ~ 1 + (1|school), data=tutorial, REML=F)
-(L2 <- logLik(mlm1))
+
+```r
+mlm1 &lt;- lmer(normexam ~ 1 + (1|school), data=tutorial, REML=F)
+(L2 &lt;- logLik(mlm1))
+```
+
+```
+## 'log Lik.' -5505.324 (df=3)
 ```
 
 --
 
 .pull-left[
 
-Apply the formula and compare to a $\chi^2$ distribution with $df$ being the number of extra parameters:
+Apply the formula and compare to a `\(\chi^2\)` distribution with `\(df\)` being the number of extra parameters:
 
 
-$$D = 2*(L_2 - L_1)$$
+`$$D = 2*(L_2 - L_1)$$`
 ]
 
 --
 
 .pull-right[
-**Quick tip:** for a difference of 1 parameter, $\chi^2$ values over 3.84 are statistically significant
+**Quick tip:** for a difference of 1 parameter, `\(\chi^2\)` values over 3.84 are statistically significant
 ]
 ---
 
@@ -1166,7 +1105,7 @@ class: left, middle, inverse
 
 class: left, middle, inverse
 
-### <font color="white">Part Four: </font>
+### &lt;font color="white"&gt;Part Four: &lt;/font&gt;
 
 # Accounting for individual and group characteristics: fixed effects
 
@@ -1179,10 +1118,10 @@ class: left, middle, inverse
 
 --
 
-$$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + u_j + e_{ij}$$
+`$$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + u_j + e_{ij}$$`
 --
 
-- The overall relationship between $y$ and $x$ is represented by a straight line with intercept $\beta_0$ and slope $\beta_1$
+- The overall relationship between `\(y\)` and `\(x\)` is represented by a straight line with intercept `\(\beta_0\)` and slope `\(\beta_1\)`
 
 --
 
@@ -1190,9 +1129,9 @@ $$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + u_j + e_{ij}$$
 
 --
 
-    -	Fixed part: $\beta_0 + \beta_1 x_{ij}$
+    -	Fixed part: `\(\beta_0 + \beta_1 x_{ij}\)`
 
-    - Random part: $u_j + e_{ij}$
+    - Random part: `\(u_j + e_{ij}\)`
 
 ---
 ## Random intercepts model (2)
@@ -1202,9 +1141,7 @@ Same slope in all areas (same relationship between age and weight  in all areas)
 
 --
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint1.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint1.PNG" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: middle
@@ -1212,23 +1149,23 @@ class: middle
 ## Random intercepts model (3)
 
 
-$$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + u_j + e_{ij}$$
+`$$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + u_j + e_{ij}$$`
 
 --
 
-- Suppose now that $x$ is a dichotomous predictor: only takes values 0 and 1
+- Suppose now that `\(x\)` is a dichotomous predictor: only takes values 0 and 1
 
 --
 
-- $\beta_0$ is the overall mean of $y$ for individuals with $x=0$
+- `\(\beta_0\)` is the overall mean of `\(y\)` for individuals with `\(x=0\)`
 
 --
 
-- $\beta_0 + u_j$ is the mean for individuals with $x=0$ in group j
+- `\(\beta_0 + u_j\)` is the mean for individuals with `\(x=0\)` in group j
 
 --
 
-- The slope $\beta_1$ is the difference in the mean for $x=1$ relative to $x=0$ (in any group)
+- The slope `\(\beta_1\)` is the difference in the mean for `\(x=1\)` relative to `\(x=0\)` (in any group)
 
 ---
 ## Random intercepts model (4)
@@ -1236,9 +1173,7 @@ $$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + u_j + e_{ij}$$
 .pull-left[
 Example "tutorial" data:
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint2.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint2.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 --
@@ -1259,7 +1194,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 
 To reproduce this example:
 ```{}
-summary(mlm2 <- lmer(normexam ~ standlrt + (1|school), data=tutorial, REML=F))
+summary(mlm2 &lt;- lmer(normexam ~ standlrt + (1|school), data=tutorial, REML=F))
 ```
 ---
 class: middle
@@ -1307,9 +1242,7 @@ When modelling individuals at level 1 and groups at level 2:
 .pull-left[
 Example "tutorial" data:
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint3.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint3.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 --
@@ -1327,7 +1260,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 
 To reproduce this example:
 ```{}
-summary(mlm3 <- lmer(normexam ~ standlrt + factor(schgend) + 
+summary(mlm3 &lt;- lmer(normexam ~ standlrt + factor(schgend) + 
         (1|school), 
         data=tutorial, REML=F))
 ```
@@ -1383,10 +1316,10 @@ class: middle
 
 --
 
-- Suppose $x_{ij}$ is defined at level 1 and $x_{2j}$ at level 2. The random intercept model is:
+- Suppose `\(x_{ij}\)` is defined at level 1 and `\(x_{2j}\)` at level 2. The random intercept model is:
 
 
-$$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + \beta_2 x_{2j}+ u_j + e_{ij}$$
+`$$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + \beta_2 x_{2j}+ u_j + e_{ij}$$`
 
 --
 
@@ -1402,7 +1335,7 @@ class: left, middle, inverse
 ---
 class: left, middle, inverse
 
-### <font color="white">Part Five: </font>
+### &lt;font color="white"&gt;Part Five: &lt;/font&gt;
 
 # Multilevel modelling for binary responses
   
@@ -1445,11 +1378,11 @@ class: middle
 .pull-right[
 
 
-<img src="https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/images/hedi-benyounes-G_gOhJeCpMg-unsplash.jpg" width="90%" align="right"/>
+&lt;img src="https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/images/hedi-benyounes-G_gOhJeCpMg-unsplash.jpg" width="90%" align="right"/&gt;
 
 ]
 
-<br>
+&lt;br&gt;
 
 **Morales-Gomez, A.** (2018). [Individual and Structural Factors Affecting Recidivism: The Role of Prisoners, Prisons and Places in the Chilean Context](https://www.research.manchester.ac.uk/portal/files/77567623/FULL_TEXT.PDF)
 ---
@@ -1462,7 +1395,7 @@ class: middle
 
 
 
-<img src="https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/images/markus-spiske-BPxkU4uPq6Y-unsplash.jpg" width="90%" align="left"/>
+&lt;img src="https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/images/markus-spiske-BPxkU4uPq6Y-unsplash.jpg" width="90%" align="left"/&gt;
 
 ]
 
@@ -1477,9 +1410,9 @@ class: middle
 
 ]
 
-<br>
+&lt;br&gt;
 
-**Morales-Gómez, A., McVie, S. & Pantoja, F.** (2022). [Controlled Delivery of Illegal Drug Parcels in Scotland: Does Policing Practice Align With a Public Health Approach Focused on Drug-Related Harm?](https://journals.sagepub.com/doi/full/10.1177/00220426221098986)
+**Morales-Gómez, A., McVie, S. &amp; Pantoja, F.** (2022). [Controlled Delivery of Illegal Drug Parcels in Scotland: Does Policing Practice Align With a Public Health Approach Focused on Drug-Related Harm?](https://journals.sagepub.com/doi/full/10.1177/00220426221098986)
 
 ---
 
@@ -1521,7 +1454,7 @@ Assume we want to analyse employment patterns in a sample of people:
 
 --
 
-We have binary variable $Y$ indicating employment status where:
+We have binary variable `\(Y\)` indicating employment status where:
  - 1 = employed
  - 0 = unemployed
 
@@ -1539,9 +1472,9 @@ We can't use linear regression as many of the assumption for linear regression a
 --
 
 
-We model the probability that $y = 1$ (i.e. employed)
+We model the probability that `\(y = 1\)` (i.e. employed)
 
-$$Pr(y_i=1) = p_i$$
+`$$Pr(y_i=1) = p_i$$`
 
 ---
 class: middle
@@ -1552,11 +1485,11 @@ class: middle
 
 We use a logistic or **logit** transformation of the outcome to *link* the dependent variable to a set of explanatory variables
 
-$$logit(p_i)=\log\left(\frac{p_{i}}{1-p_{i}}\right)$$
+`$$logit(p_i)=\log\left(\frac{p_{i}}{1-p_{i}}\right)$$`
 --
 
 We can write the model:
-$$logit(p_i)=\log\left(\frac{p_{i}}{1-p_{i}}\right) =  \beta_0+\beta_1x_{i}$$
+`$$logit(p_i)=\log\left(\frac{p_{i}}{1-p_{i}}\right) =  \beta_0+\beta_1x_{i}$$`
 --
 
 The logit link function keeps values in a range between 0 and 1
@@ -1567,7 +1500,7 @@ The logit link function keeps values in a range between 0 and 1
 
 - We can write the equation in terms of odds:
 
-$$\frac{p_{i}}{1-p_{i}} =  \exp(\beta_0+\beta_1x_{i})$$
+`$$\frac{p_{i}}{1-p_{i}} =  \exp(\beta_0+\beta_1x_{i})$$`
 ---
 class:middle
 
@@ -1579,20 +1512,20 @@ Using the same example, imagine that we now have an additional variable indicati
 
 --
 
-Consider a two-level structure where $n$ individuals $i$ are nested within groups $J$
+Consider a two-level structure where `\(n\)` individuals `\(i\)` are nested within groups `\(J\)`
 - Group can be any level-2 unit (school, cities, etc.)
 
 --
 
 .pull-left[
 
-$$\log\left(\frac{p_{ij}}{1-p_{ij}}\right)  = \beta_0+\beta_1x_{ij}+u_j$$
-<br>
-<br>
+`$$\log\left(\frac{p_{ij}}{1-p_{ij}}\right)  = \beta_0+\beta_1x_{ij}+u_j$$`
+&lt;br&gt;
+&lt;br&gt;
 where
-<br>
-<br>
-$$u_j \sim N(0,\sigma^2_u)$$
+&lt;br&gt;
+&lt;br&gt;
+`$$u_j \sim N(0,\sigma^2_u)$$`
 
 ]
 
@@ -1602,9 +1535,9 @@ The left side is the nonlinear transformation (log odds)
 
 the right side takes the form of a linear model
 
-<br>
+&lt;br&gt;
 
-The group effects or level-2 residuals $u_j$ are assumed to be independent and follow a normal distribution
+The group effects or level-2 residuals `\(u_j\)` are assumed to be independent and follow a normal distribution
 
 ]
 ---
@@ -1614,31 +1547,31 @@ class: middle
 
 --
 
-$\beta_0$ is the *overall intercept*
+`\(\beta_0\)` is the *overall intercept*
 
 --
 
-- $\beta_0$ is the log-odds that $y=1$ when $x=0$ and $u=0$
+- `\(\beta_0\)` is the log-odds that `\(y=1\)` when `\(x=0\)` and `\(u=0\)`
 
 --
 
-$\beta_1$ is usually referred to as the *cluster-specific* effect
+`\(\beta_1\)` is usually referred to as the *cluster-specific* effect
 
 --
 
-- $\beta_1$ is the effect of a 1-unit change in $x$ in the log-odds that $y=1$, while adjusting for group effect $u$
+- `\(\beta_1\)` is the effect of a 1-unit change in `\(x\)` in the log-odds that `\(y=1\)`, while adjusting for group effect `\(u\)`
 
 --
 
-$u_j$ is the *group random effect* or level two residual
+`\(u_j\)` is the *group random effect* or level two residual
 
 --
 
-- $\beta_0 + u_j$ is the intercept for a given group $j$
+- `\(\beta_0 + u_j\)` is the intercept for a given group `\(j\)`
 
 --
 
-- $var(u_j) = \sigma_u^2$ is the between-group variance and represents the variability across groups
+- `\(var(u_j) = \sigma_u^2\)` is the between-group variance and represents the variability across groups
 
 
 ---
@@ -1653,13 +1586,13 @@ Measures the proportion of the total variance that is due to differences between
 There are several ways of defining VPC for binary data:
 - Model linearisation
 - Simulation
-- .bold[<font color="#314152">Latent Variable approach</font>]
+- .bold[&lt;font color="#314152"&gt;Latent Variable approach&lt;/font&gt;]
 
 --
 
 For more details: [click here](https://rss.onlinelibrary.wiley.com/doi/epdf/10.1111/j.1467-985X.2004.00365.x?saml_referrer)
 
-.center[<img src="https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/images/VPC%20article.png", width="50%"/>]
+.center[&lt;img src="https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/images/VPC%20article.png", width="50%"/&gt;]
 
 
 ---
@@ -1669,21 +1602,21 @@ class: middle
 --
 
 Recall VPC formula for continuous response:
-$$VPC = \frac{\sigma_u^2}{\sigma_u^2 + \sigma_e^2}$$
+`$$VPC = \frac{\sigma_u^2}{\sigma_u^2 + \sigma_e^2}$$`
 --
 
 Assume that the underlying response variable is *continuous* but we can only observe a **binary response** indicating whether the underlying variable is greater or less than a given threshold.
 
 --
 
-This underlying continuous variable comes from a logistic distribution with a variance of $\frac{\pi^2}{3} \approx 3.29$
+This underlying continuous variable comes from a logistic distribution with a variance of `\(\frac{\pi^2}{3} \approx 3.29\)`
 
 --
 
 Replacing on the previuos formula:
 
-$$VPC = \frac{\sigma_u^2}{\sigma_u^2 + \sigma_e^2*}$$  
-where $\sigma_e^2*= \frac{\pi^2}{3}$
+`$$VPC = \frac{\sigma_u^2}{\sigma_u^2 + \sigma_e^2*}$$`  
+where `\(\sigma_e^2*= \frac{\pi^2}{3}\)`
 
 
 ---
@@ -1701,11 +1634,37 @@ We also want to explore whether antenatal care **varies across communities**
 
 --
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(readr)
-var <- read_csv("https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/data/variables_names.csv") 
-knitr::kable(var, format = "html")
-```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Variables &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Level &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; comm &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Community identifier &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; antemed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Received antenatal care at least once  (1 = yes, 0 = no) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; mage &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Mother's age at the child's birth (in years) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; urban &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Type of region of residence  (1 = urban, 0 = rural) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 --
 
@@ -1713,21 +1672,17 @@ There are level 1 variable (individual level)  and level 2 variables (area level
 - antemed: Outcome 
 - comm: Level 2 identifier
 ---
-```{r, eval=TRUE, echo=FALSE}
-mydata <- read.table("https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/data/antenatal.txt",  
-                     header = TRUE, sep = ",")
 
-```
 
 class: middle
 
 ##R output
-```{r, echo=TRUE, eval=TRUE}
-fit <- glmer(antemed ~    # Outcome variable
-             (1 | comm),  # level two specification
-             family = binomial("logit"),  ##link function #<< 
-             data = mydata)
 
+```r
+fit &lt;- glmer(antemed ~    # Outcome variable
+             (1 | comm),  # level two specification
+*            family = binomial("logit"),  ##link function
+             data = mydata)
 ```
 
 ###**Fixed part**
@@ -1735,7 +1690,7 @@ fit <- glmer(antemed ~    # Outcome variable
 
 ```
 Fixed effects:
-            Estimate Std. Error z value Pr(>|z|)  
+            Estimate Std. Error z value Pr(&gt;|z|)  
 *(Intercept)  0.14809    0.07178   2.063   0.0391 *
 ---
 Signif. codes:  
@@ -1745,7 +1700,7 @@ Signif. codes:
 
 ###**Interpretation**
 
-The log-odds of receiving antenatal care in an ‘average’ community $(u_j=0)$ is estimated as $\beta_0=0.148$.
+The log-odds of receiving antenatal care in an ‘average’ community `\((u_j=0)\)` is estimated as `\(\beta_0=0.148\)`.
 
 
 ---
@@ -1768,26 +1723,22 @@ Number of obs: 5366, groups:  comm, 361
 
 ###**Interpretation**
 
-The intercept for community $j$ is $0.148+u_j$, where the variance of $u_j$ is estimated as $\sigma^2_u=1.464$
+The intercept for community `\(j\)` is `\(0.148+u_j\)`, where the variance of `\(u_j\)` is estimated as `\(\sigma^2_u=1.464\)`
 
 ---
 ## Adding explanatory variables (1)
 
 --
 
-```{r eval=TRUE, echo=FALSE}
-mydata <- read.table("https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/data/antenatal.txt",  
-                     header = TRUE, sep = ",")
 
-```
 
 --
 
 ###**We add maternal age (level 1 predictor)**
 
-```{r eval=TRUE}
 
-fit2 <- glmer(antemed ~ magec + #<<
+```r
+*fit2 &lt;- glmer(antemed ~ magec +
                 (1 | comm), 
               family = binomial("logit"), 
               data = mydata)
@@ -1796,7 +1747,7 @@ fit2 <- glmer(antemed ~ magec + #<<
 
 ```
 Fixed effects:
-             Estimate Std. Error z value Pr(>|z|)    
+             Estimate Std. Error z value Pr(&gt;|z|)    
 *(Intercept)  0.144604   0.071781   2.015    0.044 *  
 *magec       -0.032357   0.005235  -6.181 6.37e-10 ***
 ---
@@ -1807,21 +1758,17 @@ Signif. codes:
 ---
 ## Adding explanatory variables (2)
 
-```{r eval=TRUE, echo=FALSE}
-mydata <- read.table("https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/data/antenatal.txt",  
-                     header = TRUE, sep = ",")
 
-```
 
-```{r, eval=TRUE}
 
-fit3 <- glmer(antemed ~ magec + urban + #<<
+```r
+*fit3 &lt;- glmer(antemed ~ magec + urban +
                 (1 | comm), 
               family = binomial("logit"), 
               data = mydata)
 ```
 
-<br>
+&lt;br&gt;
 
 --
 
@@ -1829,10 +1776,10 @@ fit3 <- glmer(antemed ~ magec + urban + #<<
 
 ```
 Fixed effects:
-             Estimate Std. Error z value Pr(>|z|)    
+             Estimate Std. Error z value Pr(&gt;|z|)    
 (Intercept) -0.346247   0.074256  -4.663 3.12e-06 ***
 magec       -0.032481   0.005221  -6.221 4.94e-10 ***
-*urban        1.494405   0.132870  11.247  < 2e-16 ***
+*urban        1.494405   0.132870  11.247  &lt; 2e-16 ***
 
 ```
 ---
@@ -1844,7 +1791,7 @@ class: middle, inverse
 
 class: left, middle, inverse
 
-### <font color="white">Part Six: </font>
+### &lt;font color="white"&gt;Part Six: &lt;/font&gt;
 
 # Differential processes between groups: random effects
   
@@ -1853,32 +1800,24 @@ class: left, middle, inverse
 
 ### Variance components
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid3.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid3.PNG" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Quick revision (2)
 
 ### Random intercepts
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint1.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint1.PNG" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Random slopes model (1)
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop1.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop1.PNG" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Random slopes model (2)
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop2.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop2.PNG" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Random slopes model (3)
@@ -1886,30 +1825,30 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 --
 
 - Allow both intercept and slope to vary randomly across groups:
-$$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + u_{0j} + u_{1j} x_{ij} +e_{ij}$$
+`$$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + u_{0j} + u_{1j} x_{ij} +e_{ij}$$`
 
 --
 
-- Comparing with the random intercepts model, a new term $u_{1j}x_{ij}$ has been added and we have two random effects: $u_{0j}$ and $u_{1j}$
+- Comparing with the random intercepts model, a new term `\(u_{1j}x_{ij}\)` has been added and we have two random effects: `\(u_{0j}\)` and `\(u_{1j}\)`
 
 --
 
-- $\beta_1$ is the slope of the average regression
+- `\(\beta_1\)` is the slope of the average regression
 
 --
 
-- $\beta_1 + u_{1j}$ is the slope of the line for group j
+- `\(\beta_1 + u_{1j}\)` is the slope of the line for group j
 
-- Assume $u_{0j}$ and $u_{1j}$ follow a bivariate normal distribution with variances $\sigma_{u0}^2$ and $\sigma_{u1}^2$, and covariance $\sigma_{u01}$
+- Assume `\(u_{0j}\)` and `\(u_{1j}\)` follow a bivariate normal distribution with variances `\(\sigma_{u0}^2\)` and `\(\sigma_{u1}^2\)`, and covariance `\(\sigma_{u01}\)`
 
 --
-$$\left[\begin{array}{ccc}
+`$$\left[\begin{array}{ccc}
 u_{0j} \\ u_{1j}
 \end{array}\right] 
 MVN \thicksim \left(\begin{array}{ccc}
-\sigma_{u0}^2 & \sigma_{u01}\\
-\sigma_{u01} & \sigma_{u1}^2
-\end{array}\right)$$
+\sigma_{u0}^2 &amp; \sigma_{u01}\\
+\sigma_{u01} &amp; \sigma_{u1}^2
+\end{array}\right)$$`
 
 --
 
@@ -1920,27 +1859,25 @@ class: middle
 
 ### Interpretation of intercept-slope covariance
 
-- Positive values of $\sigma_{u01}$ imply that groups with high intercept residuals $u_{0j}$ tend to have slope residuals $u_{1j}$
+- Positive values of `\(\sigma_{u01}\)` imply that groups with high intercept residuals `\(u_{0j}\)` tend to have slope residuals `\(u_{1j}\)`
 
-- When $\sigma_{u01}>0$ groups with high intercepts (high $\beta_0 + u_{0j}$) tend to have steeper than average slopes (high $\beta_1 + u_{1j}$). Groups with low intercepts have flatter than average slopes.
+- When `\(\sigma_{u01}&gt;0\)` groups with high intercepts (high `\(\beta_0 + u_{0j}\)`) tend to have steeper than average slopes (high `\(\beta_1 + u_{1j}\)`). Groups with low intercepts have flatter than average slopes.
   
       - This will lead to a “fanning out” of the group prediction lines.
 
-- When $\sigma_{u01}<0$, there is a “fanning in” pattern of group lines.
+- When `\(\sigma_{u01}&lt;0\)`, there is a “fanning in” pattern of group lines.
 
 ---
 ### Interpretation of differential slopes
 
 .pull-left[
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop2.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop2.PNG" width="70%" style="display: block; margin: auto;" /&gt;
 
 - Suppose this is relationship between attainment at 16 ($y$) and attainment on entry to the school ($x$).
 
 
-- Across range of $x$, school 1 is more effective than school 2.
+- Across range of `\(x\)`, school 1 is more effective than school 2.
 
 
 ]
@@ -1966,9 +1903,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 .pull-left[
 Example "tutorial" data:
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop3.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop3.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 --
@@ -1986,15 +1921,13 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 
 To reproduce this example:
 ```{}
-summary(mlm4 <- lmer(normexam ~ standlrt + factor(schgend) + 
+summary(mlm4 &lt;- lmer(normexam ~ standlrt + factor(schgend) + 
                 (1 + standlrt|school), data=tutorial, REML=F))
 ```
 ---
 ## School predicted lines
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop4.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop4.PNG" width="70%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2006,14 +1939,14 @@ Example "tutorial" data
 
 - First we run a random intercepts model:
 ```{}
-mlm3 <- lmer(normexam ~ standlrt + factor(schgend) + 
+mlm3 &lt;- lmer(normexam ~ standlrt + factor(schgend) + 
         (1|school), 
         data=tutorial, REML=F)
 ```
 
 - Then we run the multilevel model with the random slope:
 ```{}
-mlm4 <- lmer(normexam ~ standlrt + factor(schgend) + 
+mlm4 &lt;- lmer(normexam ~ standlrt + factor(schgend) + 
         (1 + standlrt|school), 
         data=tutorial, REML=F)
 ```
@@ -2027,13 +1960,11 @@ mlm4 <- lmer(normexam ~ standlrt + factor(schgend) +
 anova(mlm3, mlm4)
 ```
 
-```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop5.PNG")
-```
+&lt;img src="https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop5.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 
-- The $df$ for this test is 2 and the $\chi^2$ value is $43.643$
+- The `\(df\)` for this test is 2 and the `\(\chi^2\)` value is `\(43.643\)`
 
-- p-value is much smaller than $0.001$
+- p-value is much smaller than `\(0.001\)`
 
 ]
 
@@ -2044,19 +1975,19 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 
 - An explanatory variable with a mean of zero is achieved by subtracting the sample mean of x from the raw values, 
 
- - $x_i - \bar{x}$
+ - `\(x_i - \bar{x}\)`
  
  - This type of centring is sometimes called "grand mean centring".
 
-  - After centring, the intercept is interpreted as the predicted mean of $y$ at $\bar{x}$ 
+  - After centring, the intercept is interpreted as the predicted mean of `\(y\)` at `\(\bar{x}\)` 
 
 --
 
 - Another way of achieving a mean of zero is by *standardising*
 
-  - $\frac{x_i - \bar{x}}{s_x}$
+  - `\(\frac{x_i - \bar{x}}{s_x}\)`
   
-  - You can do the same with $y$ and all continuous x's
+  - You can do the same with `\(y\)` and all continuous x's
   
   - In this case, coefficients will be *standardised*, which means that interpretation is in units of standard deviations
 
@@ -2064,7 +1995,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_Scho
 
 - Why is this important?
 
-  - $\sigma_{u0}^2$ is the variance at $x=0$, which may be outside the range of $x$
+  - `\(\sigma_{u0}^2\)` is the variance at `\(x=0\)`, which may be outside the range of `\(x\)`
 
 ---
 
@@ -2113,9 +2044,10 @@ MLMs are everywhere. Actually, once you see multilevel structures in your data, 
 
 --
 
-```{r, echo=FALSE, fig.align= "center", out.width="160px", fig.cap=" -'I see MLMs!'", message=F, warning=F}
-knitr::include_graphics("https://media.giphy.com/media/wc7RJ0QIrIXu0/giphy.gif")
-```
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://media.giphy.com/media/wc7RJ0QIrIXu0/giphy.gif" alt=" -'I see MLMs!'" width="160px" /&gt;
+&lt;p class="caption"&gt; -'I see MLMs!'&lt;/p&gt;
+&lt;/div&gt;
 
 ---
 class: middle
@@ -2147,14 +2079,14 @@ class: middle
 
 **Education:**
 
-- **Prior, L., Goldstein, H. & Leckie, G.** (2021). [School value-added models for multivariate academic and non-academic outcomes: exploring implications for performance monitoring and accountability](https://www.tandfonline.com/doi/full/10.1080/09243453.2021.1919719)
+- **Prior, L., Goldstein, H. &amp; Leckie, G.** (2021). [School value-added models for multivariate academic and non-academic outcomes: exploring implications for performance monitoring and accountability](https://www.tandfonline.com/doi/full/10.1080/09243453.2021.1919719)
 
 
 - **Troncoso, P.** (2019). [A two-fold indicator of school performance and the cost of ignoring it](https://www.sciencedirect.com/science/article/pii/S0883035518313120)
 
 - **Troncoso, P., Pampaka, M., Olsen, W.** (2016). [Beyond traditional school value-added models: a multilevel analysis of complex school effects in Chile](https://www.tandfonline.com/doi/full/10.1080/09243453.2015.1084010)
 
-- **O'Hanlon, F., Paterson, L. & McLeod, W.** (2013). [The attainment of pupils in Gaelic-medium primary education in Scotland](https://www.tandfonline.com/doi/abs/10.1080/13670050.2012.711807)
+- **O'Hanlon, F., Paterson, L. &amp; McLeod, W.** (2013). [The attainment of pupils in Gaelic-medium primary education in Scotland](https://www.tandfonline.com/doi/abs/10.1080/13670050.2012.711807)
 
 
 ---
@@ -2162,7 +2094,7 @@ class: middle
 
 **Criminology:**
 
-- **Morales-Gómez, A., McVie, S. & Pantoja, F.** (2022). [Controlled Delivery of Illegal Drug Parcels in Scotland: Does Policing Practice Align With a Public Health Approach Focused on Drug-Related Harm?](https://journals.sagepub.com/doi/full/10.1177/00220426221098986)
+- **Morales-Gómez, A., McVie, S. &amp; Pantoja, F.** (2022). [Controlled Delivery of Illegal Drug Parcels in Scotland: Does Policing Practice Align With a Public Health Approach Focused on Drug-Related Harm?](https://journals.sagepub.com/doi/full/10.1177/00220426221098986)
 
 - **Ben Matthews, Ben Collier, Susan McVie, S.** (2021). [Understanding digital drug markets through the geography of postal drug deliveries in Scotland](https://journals.sagepub.com/doi/full/10.1177/1477370821997323)
 
@@ -2193,3 +2125,139 @@ class: left, middle, inverse
 
 # Thank you!
 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"countIncrementalSlides": false,
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
