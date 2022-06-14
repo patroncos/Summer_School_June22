@@ -1836,6 +1836,26 @@ magec       -0.032481   0.005221  -6.221 4.94e-10 ***
 
 ```
 ---
+class: middle
+
+### A quick note on estimation of logistic MLM
+
+--
+
+- The models presented here are all fitted with frequentist methods
+
+  - But...
+
+--
+
+- Researchers have previously found that Bayesian estimation performs better at estimating random effects with binary responses
+
+--
+
+- For some arguably dense details, see [Browne and Draper, 2002](https://users.soe.ucsc.edu/~draper/Browne-Draper2.pdf)
+
+
+---
 class: middle, inverse
 
 ## Practical 3
