@@ -221,7 +221,7 @@ We look for the “best fit” to the data we have.
 We obtain an equation that describes how much our dependent variable (**y**) changes as our independent variable (**x**) changes.
 
 ```{r, out.width = '65%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("exreg1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/exreg1.png")
 
 ```
 
@@ -327,7 +327,7 @@ summary(lm(y ~ x, data = data))
 ## How do you interpret R output?
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("reg1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/reg1.PNG")
 ```
 --
 
@@ -439,7 +439,7 @@ This roughly means that whatever is left unexplained by our model can be thought
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '75%', out.hight = '80%', echo = FALSE, fig.align="center"}
 
-knitr::include_graphics("norm1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/norm1.PNG")
 ```
 
 ---
@@ -541,7 +541,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/A-mora/SOCHICRIM/main
 The "classic" pupils in schools structure:
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("structure1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure1.PNG")
 ```
 
 - This is what we call a "2-level model"
@@ -556,7 +556,7 @@ But the structure doesn't need to be composed of individuals in groups:
 
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("structure2.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure2.PNG")
 ```
 
 It can also be repeated measures nested within individuals
@@ -573,7 +573,7 @@ But we are not limited to 2 levels only:
 
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("structure3.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure3.PNG")
 ```
 - This is a 3-level structure of pupils nested within classrooms, nested within schools.
 
@@ -586,7 +586,7 @@ knitr::include_graphics("structure3.png")
 We can go even further, as it was done here:
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("structure4.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure4.PNG")
 ```
 
 - In this 4-level structure, schools are nested within a higher level of local authorities.
@@ -617,7 +617,7 @@ Image Source: [Troncoso and Humphrey, 2021](https://doi.org/10.1016/j.jsp.2021.0
 
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '40%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("structure6.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure6.PNG")
 ```
 
 - The structure here is people nested in multiple "cliques": Multiple Membership and Multiple Classification (MMMC) Models and Multilevel Social Networks
@@ -673,7 +673,7 @@ But independence assumption is unrealistic; for example:
 --
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '40%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("structure5.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/structure5.PNG")
 ```
 
 --
@@ -688,7 +688,7 @@ knitr::include_graphics("structure5.png")
 A study samples 100 areas from the UK. Within each area a  sample of citizens is selected and asked questions. Below are  shown the first six rows of the resulting dataset.
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '40%', echo = FALSE, fig.align="center", fig.cap="Source: LEMMA course Bristol University"}
-knitr::include_graphics("whatislevel.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/whatislevel.PNG")
 ```
 --
 
@@ -944,7 +944,7 @@ where $\beta_0$ is the mean of $y$ in the population, and $e_i$ is the residual 
 These are the residuals for four data points in single model for the mean:
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '60%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("resid1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid1.PNG")
 ```
 ---
 ## Multilevel model for group means (1)
@@ -982,7 +982,7 @@ Individual and group residuals in a two level model for the mean:
 --
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '60%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("resid2.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid2.PNG")
 ```
 
 ---
@@ -993,7 +993,7 @@ Example: Weight in small areas in London:
 --
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("resid3.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid3.PNG")
 ```
 
 ---
@@ -1004,7 +1004,7 @@ Example: Weight in small areas in London:
 --
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("resid4.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid4.PNG")
 ```
 
 What's changed from the previous example?
@@ -1054,7 +1054,7 @@ Example "tutorial" data: subset of a large dataset of examination results in Lon
 - Empty MLM results:
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("vpc2.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/vpc2.PNG")
 ```
 
 ]
@@ -1088,7 +1088,7 @@ summary(mlm1 <- lmer(normexam ~ 1 + (1|school), data=tutorial, REML=F))
 
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("vpc1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/vpc1.PNG")
 ```
 
 --
@@ -1203,7 +1203,7 @@ Same slope in all areas (same relationship between age and weight  in all areas)
 --
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("randint1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint1.PNG")
 ```
 
 ---
@@ -1237,7 +1237,7 @@ $$\LARGE y_{ij} = \beta_0 + \beta_1 x_{ij} + u_j + e_{ij}$$
 Example "tutorial" data:
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("randint2.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint2.PNG")
 ```
 ]
 
@@ -1308,7 +1308,7 @@ When modelling individuals at level 1 and groups at level 2:
 Example "tutorial" data:
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("randint3.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint3.PNG")
 ```
 ]
 
@@ -1633,7 +1633,7 @@ There are several ways of defining VPC for binary data:
 
 For more details: [click here](https://rss.onlinelibrary.wiley.com/doi/epdf/10.1111/j.1467-985X.2004.00365.x?saml_referrer)
 
-.center[<img src="images/VPC article.png", width="50%"/>]
+.center[<img src="https://raw.githubusercontent.com/A-mora/MLM_summer-school/main/images/VPC%20article.png", width="50%"/>]
 
 
 ---
@@ -1746,7 +1746,7 @@ class: left, middle, inverse
 ### Variance components
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("resid3.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/resid3.PNG")
 ```
 
 ---
@@ -1755,21 +1755,21 @@ knitr::include_graphics("resid3.png")
 ### Random intercepts
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("randint1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randint1.PNG")
 ```
 
 ---
 ## Random slopes model (1)
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("randslop1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop1.PNG")
 ```
 
 ---
 ## Random slopes model (2)
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("randslop2.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop2.PNG")
 ```
 
 ---
@@ -1826,7 +1826,7 @@ class: middle
 .pull-left[
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center", fig.cap=""}
-knitr::include_graphics("randslop2.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop2.PNG")
 ```
 
 - Suppose this is relationship between attainment at 16 ($y$) and attainment on entry to the school ($x$).
@@ -1859,7 +1859,7 @@ knitr::include_graphics("randslop2.png")
 Example "tutorial" data:
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("randslop3.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop3.PNG")
 ```
 ]
 
@@ -1885,7 +1885,7 @@ summary(mlm4 <- lmer(normexam ~ standlrt + factor(schgend) +
 ## School predicted lines
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '70%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("randslop4.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop4.PNG")
 ```
 
 
@@ -1920,7 +1920,7 @@ anova(mlm3, mlm4)
 ```
 
 ```{r, echo=FALSE, warnings= F, message = F, out.width = '100%', echo = FALSE, fig.align="center"}
-knitr::include_graphics("randslop5.png")
+knitr::include_graphics("https://raw.githubusercontent.com/patroncos/Summer_School_June22/main/images/randslop5.PNG")
 ```
 
 - The $df$ for this test is 2 and the $\chi^2$ value is $43.643$
