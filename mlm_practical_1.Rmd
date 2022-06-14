@@ -180,6 +180,8 @@ L2 <- as.numeric(logLik(m0))
 
 (D <- 2*(L2-L1)) # this is the deviance, we put it within brackets to print it immediately
 
+pchisq(q=D, df=1, lower.tail=F) # To find the p-value
+
 ```
 
 ### Question
